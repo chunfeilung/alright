@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" href="settings.css" />
+    <script src="settings.js"></script>
+  </head>
+  <body>
+    <!--
+    Minimalist header with a button that takes you to the autolink reference
+    creation form.
+    -->
+    <header id="header">
+      <h1>Autolink references</h1>
+      <div>
+        <button class="--normal" id="add-autolink-button">Add autolink reference</button>
+      </div>
+    </header>
+
+    <!--
+    Table that lists all autolink references that will be added by this browser
+    extension.
+    -->
+    <div id="autolink-table" class="saved-references">
+    </div>
+
+    <!--
+    Template for individual autolink reference rows in #autolink-table
+    -->
+    <template id="autolink-row-template">
+      <div class="row">
+        <div class="autolink">
+          <span class="prefix"></span><span class="variable"></span>
+          →
+          <span class="target"></span><span class="prefix"></span><span class="variable"></span>
+          <span class="label"><span class="is-alphanumeric"></span></span>
+        </div>
+        <button class="--normal --danger | remove">Remove</button>
+      </div>
+    </template>
+
+    <!--
+    Form for creating new autolink references. Mimics the form used in GitHub’s
+    user interface.
+    -->
+    <template id="add-autolink-template">
+      <form id="add-autolink-form">
+
+        <!--
+        Autolink reference type (alphanumeric or numeric)
+        -->
+        <div class="form --checkbox">
+          <label>
+            <input type="radio" name="is-alphanumeric" value="true" checked />
+            Alphanumeric
+          </label>
+          <p class="note">
+            Alphanumeric autolinks match A-Z, 0-9, and -. They are not case-sensitive.
+          </p>
+        </div>
+        <div class="form --checkbox">
+          <label>
+            <input type="radio" name="is-alphanumeric" value="false" />
+            Numeric
+          </label>
+          <p class="note">
+            Numeric autolinks only match 0-9.
+          </p>
+        </div>
+
+        <!--
+        Prefix and target fields
+        -->
+
+        <div class="form --text">
+          <label>
+            Reference prefix
+            <input type="text" name="prefix" placeholder="TICKET-" />
+          </label>
+          <p class="note">
+            This prefix appended by a string will generate a link any time it is found in an issue, pull request, or commit.
+          </p>
+        </div>
+
+        <div class="form --text">
+          <label>
+            Target URL
+            <input type="text" name="target" placeholder="https://example.com/TICKET?query=<num>" />
+          </label>
+          <p class="note">
+            The URL must contain <kbd>&lt;num&gt;</kbd> for the reference number.
+          </p>
+        </div>
+
+        <button class="--save" id="save-autolink-button">Add autolink reference</button>
+
+      </form>
+    </template>
+  </body>
+</html>

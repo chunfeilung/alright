@@ -1,0 +1,138 @@
+body {
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    padding: 16px;
+    width: 750px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+}
+
+/**
+ * Forms and input fields
+ * -----------------------------------------------------------------------------
+ */
+
+.form {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    line-height: 21px;
+}
+
+p.note {
+    color: #636c76;
+    font-size: 12px;
+    line-height: 18px;
+    margin: 4px 0;
+}
+
+.form.--checkbox p.note {
+    line-height: 12px;
+    margin-left: 24px;
+}
+
+input[type="text"] {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    display: block;
+    line-height: 20px;
+    margin-top: 4px;
+    padding: 5px 12px;
+    width: 440px;
+}
+
+/**
+ * Buttons
+ * -----------------------------------------------------------------------------
+ */
+
+button {
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+button.--save {
+    background-color: #1f883d;
+    border: 1px solid #1f232826;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 5px 16px;
+}
+
+button.--save:hover {
+    background-color: #1c8139;
+}
+
+button.--normal {
+    background-color: #f6f8fa;
+    border: 1px solid #d0d7de;
+    color: #333333;
+    font-size: 12px;
+    padding: 3px 12px;
+}
+
+button.--normal:hover {
+    background-color: #f2f4f6;
+}
+
+button.--danger {
+    color: #d1242f;
+    flex-shrink: 1;
+}
+
+button.--danger:hover {
+    background-color: #a40e26;
+    color: #ffffff;
+}
+
+/**
+ * Table that shows all created autolink references.
+ * -----------------------------------------------------------------------------
+ */
+
+.saved-references {
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    margin-top: 24px;
+}
+
+.saved-references .row {
+    border-top: 1px solid #d0d7de;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.saved-references .row:first-child {
+    border-top: 0;
+}
+
+.autolink {
+    line-height: 20px;
+    padding: 4px;
+}
+
+.autolink .label {
+    border: 1px solid #6e7781;
+    border-radius: 24px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 18px;
+    padding: 2px 7px;
+}
