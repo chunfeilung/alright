@@ -21,7 +21,7 @@ const addAutolinksToTitle = (autolinks, title) => {
         }
 
         title.innerHTML = title.innerHTML.replace(
-            new RegExp(`${autolink.prefix}([${variable}]+)`),
+            new RegExp(`${autolink.prefix}([${variable}]+)`, 'gi'),
             `<a href="${autolink.target.replace('<num>', '$1')}">${autolink.prefix}$1</a>`
         )
     })
