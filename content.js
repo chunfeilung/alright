@@ -20,6 +20,11 @@ const addAutolinksToTitle = (autolinks, title) => {
             return;
         }
 
+        // Prevent HTML injection into <a> title attributes
+        if (title.querySelector('a')) {
+            title = title.querySelector('a');
+        }
+
         title.innerHTML = title.innerHTML.replace(
             new RegExp(`${autolink.prefix}([${variable}]+)`, 'gi'),
             `<a href="${autolink.target.replace('<num>', '$1')}">${autolink.prefix}$1</a>`
