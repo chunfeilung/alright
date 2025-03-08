@@ -25,6 +25,12 @@ const addAutolinksToTitle = (autolinks, title) => {
             title = title.querySelector('a');
         }
 
+        // Titles on issues page appear to be wrapped in a <span> tag whose
+        // class name may use the same prefix as a user-configured autolink.
+        if (title.children[0]?.tagName?.toLowerCase() === 'span') {
+            title = title.children[0];
+        }
+
         title.innerHTML = title.innerHTML.replace(
             new RegExp(`${autolink.prefix}([${variable}]+)`, 'gi'),
             `<a href="${autolink.target.replace('<num>', '$1')}">${autolink.prefix}$1</a>`
