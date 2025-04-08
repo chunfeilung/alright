@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Alright: Autolink references in GitHub titles",
   "description": "Alright adds autolink references to GitHub pull request titles.",
-  "version": "1.1.2",
+  "version": "1.2",
   "action": {
     "default_popup": "settings.html",
     "default_icon": "alright.png"
@@ -19,5 +19,10 @@
   ],
   "permissions": [
     "storage"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{207a78ca-af9a-4681-9f6b-ed090bc038fa}"
+    }
+  }
 }

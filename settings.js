@@ -59,7 +59,7 @@ const saveAutolink = (evt) => {
     // Save settings
     const autolink = new Autolink(isAlphanumeric, prefix, target);
     chrome.storage.sync.get(['autolinks'], function (result) {
-        const autolinks = result.autolinks || {};
+        const autolinks = result?.autolinks || {};
         if (autolinks[autolink.prefix]) {
             alert('This autolink has already been added!');
             return false;
@@ -81,11 +81,10 @@ const removeAutolink = (evt) => {
     const prefix = evt.target.parentNode.querySelector('.prefix').textContent;
 
     chrome.storage.sync.get(['autolinks'], function (result) {
-        const autolinks = result.autolinks || {};
+        const autolinks = result?.autolinks || {};
         delete autolinks[prefix];
-        chrome.storage.sync.set({autolinks});
-
-        showAutolinks();
+        chrome.storage.sync.set({autolinks})
+            .then(() => showAutolinks());
     });
 }
 
@@ -93,8 +92,10 @@ const showAutolinks = () => {
     const table = $('#autolink-table');
 
     chrome.storage.sync.get(['autolinks'], function (result) {
-        const autolinks = result.autolinks || {};
-        table.innerHTML = '';
+        const autolinks = result?.autolinks || {};
+        while (table.firstChild) {
+            table.removeChild(table.firstChild);
+        }
 
         // Populate autolinks table using template
         for (const key of Object.keys(autolinks)) {
