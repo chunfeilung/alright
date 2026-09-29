@@ -13,7 +13,8 @@
         "content.js"
       ],
       "matches": [
-        "https://github.com/*"
+        "https://github.com/*",
+        "https://*.ghe.com/*"
       ]
     }
   ],
