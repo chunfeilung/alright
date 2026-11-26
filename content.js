@@ -1,6 +1,7 @@
 const modifyTitles = () => {
     chrome.storage.sync.get(['autolinks'], function (result) {
-        document.querySelectorAll('.markdown-title')
+        // listitem-title-link matches the text of each title in the pull request list
+        document.querySelectorAll('.markdown-title, [data-testid="listitem-title-link"] [data-component="Text"]')
             .forEach((title) => {
                 addAutolinksToTitle(Object.values(result?.autolinks || []), title);
             });
@@ -17,6 +18,11 @@ const addAutolinksToTitle = (autolinks, title) => {
 
         // Prevent double replacements
         if (title.innerHTML.includes(autolink.target.replace('<num>', ''))) {
+            return;
+        }
+
+        // Changes only titles that contain this reference, so a re-run after every DOM change settles after one pass
+        if (!new RegExp(`${autolink.prefix}[${variable}]+`, 'i').test(title.textContent)) {
             return;
         }
 
@@ -42,6 +48,8 @@ const addAutolinksToTitle = (autolinks, title) => {
             refNumberRegex,
             `<a href="${autolink.target.replace('<num>', '$1')}">${autolink.prefix}$1</a>`
         )
+        // Keeps the ticket link's own navigation when the title sits inside a PR link that GitHub handles itself
+        title.querySelectorAll('a').forEach(link => link.addEventListener('click', event => event.stopPropagation()));
     })
 }
 
@@ -58,14 +66,14 @@ function modifyTitlesOnLoad() {
 modifyTitlesOnLoad();
 
 /**
- * A window.navigation.addEventListener that also works in Firefox.
+ * Covers titles that GitHub renders after navigation or after loading data,
+ * with at most one pass per 100 ms.
  */
-let lastUrl = location.href;
+let pendingUpdate = null;
 const observer = new MutationObserver(() => {
-    if (location.href !== lastUrl) {
-        lastUrl = location.href;
-        // Wait for the page to load before modifying titles
-        setTimeout(modifyTitles, 100);
-    }
+    pendingUpdate ??= setTimeout(() => {
+        pendingUpdate = null;
+        modifyTitles();
+    }, 100);
 });
 observer.observe(document, {subtree: true, childList: true});
