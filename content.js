@@ -1,6 +1,7 @@
 const modifyTitles = () => {
     chrome.storage.sync.get(['autolinks'], function (result) {
-        document.querySelectorAll('.markdown-title')
+        // markdownTitle__ matches the PR title on the "Overview" pull request page, whose class name ends in a generated suffix
+        document.querySelectorAll('.markdown-title, [class*="markdownTitle__"]')
             .forEach((title) => {
                 addAutolinksToTitle(Object.values(result?.autolinks || []), title);
             });
